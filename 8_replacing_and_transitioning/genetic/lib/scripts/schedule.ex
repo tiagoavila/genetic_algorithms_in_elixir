@@ -38,12 +38,12 @@ defmodule Schedule do
   def terminate?(_population, generation), do: generation == 1000
 end
 
-soln = Genetic.run(Schedule)
+# soln = Genetic.run(Schedule)
 
-# soln = Genetic.run(Schedule,
-#                   reinserton_strategy: &Toolbox.Reinsertion.elitist(&1, &2, &3, 0.1),
-#                   selection_rate: 0.8,
-#                   mutation_rate: 0.1)
+soln = Genetic.run(Schedule,
+                  reinserton_strategy: &Toolbox.Reinsertion.elitist(&1, &2, &3, 0.1),
+                  selection_rate: 0.8,
+                  mutation_rate: 0.1)
 
 # soln = Genetic.run(Schedule,
 #                   reinserton_strategy: &Toolbox.Reinsertion.elitist(&1, &2, &3, 0.1),
