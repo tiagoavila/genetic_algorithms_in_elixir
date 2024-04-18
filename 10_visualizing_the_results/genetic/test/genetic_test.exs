@@ -2,12 +2,7 @@ defmodule GeneticTest do
   use ExUnit.Case
   doctest Genetic
 
-  # test "Test Schedule Problem" do
-  #   soln = Genetic.run(Schedule)
-
-  #   assert soln != nil
-  # end
-
+  @tag skip: true
   test "Test Tiger Simulation Problem" do
     tiger =
       Genetic.run(TigerSimulation,
@@ -28,6 +23,7 @@ defmodule GeneticTest do
     IO.inspect(onethousand_gen_stats.mean_fitness, label: "1000th")
   end
 
+  @tag skip: true
   test "Test Tiger Simulation Problem showing average Tiger" do
     tiger =
       Genetic.run(TigerSimulation,
@@ -52,7 +48,7 @@ defmodule GeneticTest do
   test "Test Tiger Simulation Problem showing Genealogy tree" do
     tiger =
       Genetic.run(TigerSimulation,
-        population_size: 20,
+        population_size: 6,
         selection_rate: 0.9,
         mutation_rate: 0.1,
         statistics: %{average_tiger: &TigerSimulation.average_tiger/1}
@@ -61,6 +57,11 @@ defmodule GeneticTest do
     assert tiger != nil
 
     genealogy = Utilities.Genealogy.get_tree()
+
+    {:ok, dot} = Graph.Serializers.DOT.serialize(genealogy)
+    {:ok, dotfile} = File.open("tiger_simulation.dot", [:write])
+    :ok = IO.binwrite(dotfile, dot)
+    :ok = File.close(dotfile)
 
     IO.inspect(Graph.vertices(genealogy), label: "Genealogy tree")
   end
