@@ -16,10 +16,11 @@
             "request": "launch",
             "task": "test",
             "taskArgs": [
+                "/test/tetris_test.exs",
                 "--trace"
             ],
             "startApps": true,
-            "projectDir": "${workspaceRoot}/9_tracking_genetic_algorithms/genetic",
+            "projectDir": "${workspaceRoot}/10_visualizing_the_results/genetic",
             "requireFiles": [
                 "test/**/test_helper.exs",
                 "test/**/*_test.exs"

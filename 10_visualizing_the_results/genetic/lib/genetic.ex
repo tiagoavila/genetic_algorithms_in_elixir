@@ -80,7 +80,7 @@ defmodule Genetic do
 
     parents =
       parents
-      |> Enum.chunk_every(2)
+      |> Enum.chunk_every(2, 2, :discard)
       |> Enum.map(& List.to_tuple(&1))
 
     {parents, MapSet.to_list(leftover)}
@@ -140,10 +140,9 @@ defmodule Genetic do
     population = evaluate(population, &problem.fitness_function/1, opts)
     best = hd(population)
     statistics(population, generation, opts)
-    fit_str =
-      best.fitness
-      |> :erlang.float_to_binary(decimals: 4)
-    IO.write("\rCurrent best: #{fit_str}\tGeneration: #{generation}")
+
+    IO.write("\rCurrent best: #{best.fitness}\tGeneration: #{generation}")
+
     if problem.terminate?(population, generation) do
       best
     else
